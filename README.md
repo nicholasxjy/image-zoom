@@ -10,8 +10,20 @@
   <script>
     window.onload = function() {
       var container = document.querySelector('.content')
-      new ImageZoom(container)
+      new ImageZoom(container, {
+          gutter: 30,
+          scrollOffset: 10,
+          overlayBg: '#ffffff',
+          scaleFactor: 1,
+          beforeZoomIn: () => {},
+          afterZoomIn: () => {},
+          beforeZoomOut: () => {},
+          afterZoomOut: () => {}
+      })
     }
   </script>
 
 ```
+
+
+### you can open index.html to see the demo effect
