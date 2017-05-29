@@ -1,0 +1,25 @@
+{
+  "name": "imagezoom",
+  "version": "1.0.0",
+  "description": "An image viewer like medium article effect",
+  "main": "dist/zoom.min.js",
+  "scripts": {
+    "build": "rimraf dist && webpack -p"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.1",
+    "css-loader": "^0.28.3",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.5",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.1",
+    "webpack": "^2.6.1"
+  }
+}

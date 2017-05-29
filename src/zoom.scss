@@ -1,0 +1,55 @@
+.image-zoom {
+  overflow: visible !important;
+}
+.image-zoom-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-zoom-content {
+  position: relative;
+  transform-origin: center center;
+  transition: transform 300ms cubic-bezier(.2,0,.2,1);
+  will-change: transform;
+}
+.image-zoom-target {
+  cursor: pointer;
+  cursor: zoom-in;
+}
+
+.image-zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  cursor: pointer;
+  cursor: zoom-out;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s linear, visibility 0s linear;
+}
+
+.image-zoom--open {
+  .image-zoom-overlay {
+    visibility: visible;
+    opacity: 1;
+    z-index: 9999;
+    cursor: pointer;
+    cursor: zoom-out;
+  }
+  .image-zoom-container.open {
+    .image-zoom-content {
+      z-index: 10000;
+      cursor: pointer;
+      cursor: zoom-out;
+    }
+    .image-zoom-target {
+      cursor: pointer;
+      cursor: zoom-out;
+    }
+  }
+}
