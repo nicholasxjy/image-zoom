@@ -1,7 +1,7 @@
 import './zoom.scss'
 
 const defaultOptions = {
-  gutter: 30,
+  gutter: 20,
   scrollOffset: 10,
   overlayBg: '#ffffff',
   scaleFactor: 1,
@@ -11,6 +11,10 @@ const defaultOptions = {
   afterZoomOut: () => {}
 }
 
+function isMobile() {
+  const ua = navigator.userAgent
+  return /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/gi.test(ua)
+}
 
 function getScale({ width, height, gutter }) {
   const scaleX = window.innerWidth / (width + gutter * 2)
@@ -58,6 +62,12 @@ class ImageZoom {
     this._bindEvents = this._bindEvents.bind(this)
     this._unbindEvents = this._unbindEvents.bind(this)
     this._destroyZoomer = this._destroyZoomer.bind(this)
+
+    this.onTouchStart = this.onTouchStart.bind(this)
+    this.onTouchMove = this.onTouchMove.bind(this)
+    this.onTouchEnd = this.onTouchEnd.bind(this)
+
+
     this._createZoomOverlay()
     this._init()
   }
@@ -84,12 +94,42 @@ class ImageZoom {
       wrapTargetContainer(item)
     })
   }
+  onTouchStart(e) {
+    this.yTouchPosition = e.touches[0].clientY
+  }
+  onTouchMove(e) {
+    const { scrollOffset } = this.options
+    if (this.yTouchPosition) {
+      const touchChange = Math.abs(e.touches[0].clientY - this.yTouchPosition)
+      if (!this.isAnimating) {
+        this.zoomOut()
+      }
+    }
+  }
+  onTouchEnd() {
+    this.yTouchPosition = null
+  }
+  _bindTouchEvents() {
+    window.addEventListener('ontouchstart', this.onTouchStart, false)
+    window.addEventListener('ontouchmove', this.onTouchMove, false)
+    window.addEventListener('ontouchend', this.onTouchEnd, false)
+    window.addEventListener('ontouchcancel', this.onTouchEnd, false)
+  }
+  _unbindTouchEvents() {
+    window.removeEventListener('ontouchstart', this.onTouchStart, false)
+    window.removeEventListener('ontouchmove', this.onTouchMove, false)
+    window.removeEventListener('ontouchend', this.onTouchEnd, false)
+    window.removeEventListener('ontouchcancel', this.onTouchEnd, false)
+  }
   zoomIn() {
     const { beforeZoomIn } = this.options
     beforeZoomIn()
     this._scrollTop = document.body.scrollTop
     document.body.classList.add('image-zoom--open')
     this._bindEvents()
+    if (isMobile()) {
+      this._bindTouchEvents()
+    }
     this._animateTarget()
   }
   _animateTarget() {
@@ -130,6 +170,9 @@ class ImageZoom {
     this._container.classList.remove('open')
     document.body.classList.remove('image-zoom--open')
     this._zoomtarget.style.transform = 'none'
+    if (isMobile()) {
+      this._unbindTouchEvents()
+    }
     setTimeout(() => {
       this.isAnimating = false
       this._destroyZoomer()

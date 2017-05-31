@@ -31,6 +31,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s linear, visibility 0s linear;
+  will-change: opacity;
 }
 
 .image-zoom--open {
