@@ -1,16 +1,27 @@
-# image-zoom
+## image-zoom
 
-### a medium like image zoom plugin
+a medium like image zoom plugin
 
-### how to use it
+## Features
+
+- Small
+
+- No other deps
+
+## Installation
+
+```bash
+$ npm install --save nico-zoom
+```
+
+## Getting started
 
 ```html
-
-  <script src="./dist/zoom.min.js"></script>
+  <script src="./dist/NZoom.min.js"></script>
   <script>
     window.onload = function() {
       var container = document.querySelector('.content')
-      new ImageZoom(container, {
+      new NZoom(container, {
           gutter: 30,
           scrollOffset: 10,
           overlayBg: '#ffffff',
@@ -22,8 +33,19 @@
       })
     }
   </script>
-
 ```
 
+```javascript
+import NZoom from 'nico-zoom'
 
-### you can open index.html to see the demo effect
+new NZoom(document.querySelector('.content'), {
+  gutter: 30,
+  scrollOffset: 10,
+  overlayBg: '#ffffff',
+  scaleFactor: 1,
+  beforeZoomIn: () => {},
+  afterZoomIn: () => {},
+  beforeZoomOut: () => {},
+  afterZoomOut: () => {}
+})
+```

@@ -1,4 +1,4 @@
-import './zoom.scss'
+import './zoom.css'
 
 const defaultOptions = {
   gutter: 20,
@@ -24,9 +24,7 @@ function getScale({ width, height, gutter }) {
 
 function calScale({ w, h, nw, nh, gutter }) {
   const scale = getScale({ width: nw, height: nh, gutter })
-  const ratio = nw > nh
-    ? nw / w
-    : nh / h
+  const ratio = nw > nh ? nw / w : nh / h
 
   return scale > 1 ? ratio : ratio * scale
 }
@@ -66,7 +64,6 @@ class ImageZoom {
     this.onTouchStart = this.onTouchStart.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
     this.onTouchEnd = this.onTouchEnd.bind(this)
-
 
     this._createZoomOverlay()
     this._init()
@@ -146,7 +143,13 @@ class ImageZoom {
     const targetCenterX = left + width / 2
     const targetCenterY = top + height / 2
 
-    const scale = calScale({ w: width, h: height, nw: naturalWidth, nh: naturalHeight, gutter })
+    const scale = calScale({
+      w: width,
+      h: height,
+      nw: naturalWidth,
+      nh: naturalHeight,
+      gutter
+    })
 
     const translateX = (viewportCenterX - targetCenterX) / scale
     const translateY = (viewportCenterY - targetCenterY) / scale
@@ -229,4 +232,4 @@ class ImageZoom {
   }
 }
 
-module.exports = ImageZoom
+export default ImageZoom
