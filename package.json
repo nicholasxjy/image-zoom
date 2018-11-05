@@ -1,6 +1,6 @@
 {
   "name": "nico-zoom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An image zoom viewer like medium article effect",
   "main": "dist/NZoom.min.js",
   "scripts": {

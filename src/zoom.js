@@ -16,6 +16,10 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/gi.test(ua)
 }
 
+function getScrollTop() {
+  return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop)
+}
+
 function getScale({ width, height, gutter }) {
   const scaleX = window.innerWidth / (width + gutter * 2)
   const scaleY = window.innerHeight / (height + gutter * 2)
@@ -121,7 +125,7 @@ class ImageZoom {
   zoomIn() {
     const { beforeZoomIn } = this.options
     beforeZoomIn()
-    this._scrollTop = document.body.scrollTop
+    this._scrollTop = getScrollTop()
     document.body.classList.add('image-zoom--open')
     this._bindEvents()
     if (isMobile()) {
@@ -209,7 +213,8 @@ class ImageZoom {
   }
   onScroll() {
     const { scrollOffset } = this.options
-    if (Math.abs(this._scrollTop - document.body.scrollTop) > scrollOffset) {
+    const st = getScrollTop()
+    if (Math.abs(this._scrollTop - st) > scrollOffset) {
       if (!this.isAnimating) {
         this.zoomOut()
       }
