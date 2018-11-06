@@ -1,7 +1,7 @@
 import './zoom.css'
 
 const defaultOptions = {
-  items: 'img',
+  items: '',
   gutter: 20,
   scrollOffset: 10,
   overlayBg: '#ffffff',
@@ -81,6 +81,9 @@ class ImageZoom {
     this._createContainerOfElements()
   }
   _init() {
+    if (!this.options.items) {
+      throw new Error('no items set!')
+    }
     this.elements = this.container.querySelectorAll(this.options.items)
     this._createContainerOfElements()
     this._bindClickDelegateToContainer()
