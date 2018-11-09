@@ -235,7 +235,9 @@
   <script>
     window.onload = function () {
       var container = document.querySelector('.content')
-      new NZoom(container)
+      new NZoom(container, {
+        items: 'img'
+      })
     }
   </script>
 
